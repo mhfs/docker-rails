@@ -1,0 +1,16 @@
+<h1>Docker Rails</h1>
+
+<h3>Env Vars</h3>
+
+<table border="1" cellspacing="0" cellpadding="5">
+<% @vars.sort.each do |name, value| %>
+  <tr>
+    <td>
+      <%= name %>
+    </td>
+    <td>
+      <%= value[0..135] %>
+    </td>
+  </tr>
+<% end %>
+</table>
