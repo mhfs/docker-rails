@@ -36,6 +36,7 @@ gem 'puma'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'minitest-ci', :git => 'git@github.com:circleci/minitest-ci.git'
 end
 
 group :development do
