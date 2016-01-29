@@ -1,3 +1,13 @@
 machine:
+  services:
+    - docker
   ruby:
     version: 2.3.0
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
+      - docker build -t "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1" .
+      - docker push "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1"
