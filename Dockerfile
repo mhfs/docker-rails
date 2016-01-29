@@ -1,4 +1,4 @@
-FROM ruby:2.3.0-slim
+FROM ruby:2.3.0
 
 RUN apt-get update -qq && apt-get install -y git build-essential libpq-dev libxml2-dev libxslt1-dev nodejs && rm -rf /var/lib/apt/lists/*
 
