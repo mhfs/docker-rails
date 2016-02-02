@@ -12,6 +12,8 @@ dependencies:
     - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
     - docker build -t "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1" .
     - docker push "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1"
+    - docker tag "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1" "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:latest"
+    - docker push "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:latest"
 
 deployment:
   mhfs:
