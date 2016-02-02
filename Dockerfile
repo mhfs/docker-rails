@@ -7,7 +7,7 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 ADD Gemfile* $APP_HOME/
-RUN bundle install --without development test --deployment
+RUN bundle install --without development test --deployment --jobs=4 --retry=3
 
 ADD . $APP_HOME
 
