@@ -5,7 +5,7 @@ machine:
     version: 2.3.0
 
 dependencies:
-  override:
+  pre:
     - mkdir -p tmp/codedeploy_package/
     - cp appspec.yml tmp/codedeploy_package/
     - cp -r deploy tmp/codedeploy_package/
