@@ -3,4 +3,4 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready ->
-  $('h1').css('color', 'blue')
+  $('h1').css('color', 'green')
