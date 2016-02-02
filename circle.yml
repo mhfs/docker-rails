@@ -4,10 +4,26 @@ machine:
   ruby:
     version: 2.3.0
 
+dependencies:
+  override:
+    - mkdir -p tmp/codedeploy_package/
+    - cp appspec.yml tmp/codedeploy_package/
+    - cp -r deploy tmp/codedeploy_package/
+    - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
+    - docker build -t "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1" .
+    - docker push "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1"
+
 deployment:
-  production:
+  mhfs:
     branch: master
-    commands:
-      - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
-      - docker build -t "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1" .
-      - docker push "$DOCKER_USER/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1"
+    codedeploy:
+      rails_app-mhfs:
+        application_root: /tmp/codedeploy_package/
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: codedeploy-mhfs
+            key_pattern: rails_app-{SHORT_COMMIT}-{BUILD_NUM}.tar.gz
+        region: us-east-1
+        deployment_group: mhfs
+        deployment_config: CodeDeployDefault.OneAtATime
